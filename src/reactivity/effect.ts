@@ -14,8 +14,10 @@ export const track = (target, key) => {
     depsSet = new Set()
     depsMap.set(key, depsSet)
   }
-  depsSet.add(activeFn)
-  activeFn.deps.push(depsSet)
+  if (activeFn) {
+    depsSet.add(activeFn)
+    activeFn.deps.push(depsSet)
+  }
 }
 
 export const trigger = (target, key) => {
