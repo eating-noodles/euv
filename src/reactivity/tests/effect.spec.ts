@@ -18,4 +18,20 @@ describe('effect', () => {
     expect(dummy).toBe(7)
 
   })
+
+  it('branch switch', () => {
+    let observed = reactive({ flag: false, num1: 1, num2: 2 })
+
+    let count = 0;
+    effect(() => {
+      let reslut = observed.flag ? observed.num1 : observed.num2
+      count++
+    })
+
+    expect(count).toBe(1)
+    observed.flag = true
+    expect(count).toBe(2)
+    observed.num2 = 3
+    expect(count).toBe(2)
+  })
 })
