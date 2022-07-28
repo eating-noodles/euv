@@ -1,4 +1,5 @@
 const targetMap = new WeakMap()
+const effectStack = new Array()
 let activeFn
 
 export const track = (target, key) => {
@@ -46,8 +47,15 @@ class ReactiveEffect {
   }
 
   run() {
-    activeFn = this
+    effectStack.push(this)
+    activeFn = effectStack[effectStack.length - 1]
     this._fn()
+    effectStack.pop()
+    if (effectStack.length > 0) {
+      activeFn = effectStack[effectStack.length - 1]
+    } else {
+      activeFn = undefined
+    }
   }
 }
 
