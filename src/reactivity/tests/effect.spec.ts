@@ -69,5 +69,8 @@ describe('effect', () => {
     })
 
     expect(observed.foo).toBe(2)
+
+    observed.foo = 3
+    expect(observed.foo).toBe(4)
   })
 })

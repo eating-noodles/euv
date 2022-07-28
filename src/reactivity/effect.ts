@@ -32,12 +32,12 @@ export const trigger = (target, key) => {
   // 执行副作用函数时，又会把副作用函数重新加入到依赖Set中。这样就会导致无限循环
   const newDeps = new Set<any>(deps)
   newDeps.forEach(dep => {
-    dep.deps.forEach(el => {
-      el.delete(dep)
-    })
-    dep.deps.length = 0
-
     if (dep !== activeFn) {
+      dep.deps.forEach(el => {
+        el.delete(dep)
+      })
+      dep.deps.length = 0
+
       dep.run()
     }
   });
