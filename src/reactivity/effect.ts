@@ -36,7 +36,10 @@ export const trigger = (target, key) => {
       el.delete(dep)
     })
     dep.deps.length = 0
-    dep.run()
+
+    if (dep !== activeFn) {
+      dep.run()
+    }
   });
 }
 

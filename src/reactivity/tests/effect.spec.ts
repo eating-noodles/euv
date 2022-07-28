@@ -61,4 +61,13 @@ describe('effect', () => {
     expect(count1).toBe(2)
     expect(count2).toBe(2)
   })
+
+  it('var auto increment', () => {
+    const observed = reactive({ foo: 1 })
+    effect(() => {
+      observed.foo++
+    })
+
+    expect(observed.foo).toBe(2)
+  })
 })
